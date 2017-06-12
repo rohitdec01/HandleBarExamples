@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>This is forth example of handle bar</title>
+	<script src="handlebars-v4.0.10.js"></script>
+</head>
+<body>
+	<div id="myContainer">	</div>
+
+	<!-- This is handler script.-->
+	<script id="handlerTemplate" type="text/x-handlebars-template">
+	{{#makeRadio "size" }}
+		Small
+		Medium
+		Large
+	{{/makeRadio}}
+
+	<!-- select templates based on some condition-->
+	{{#checkEqual 2 3}}
+		Numbers are equal.
+		{{else}}
+		Numbers are not Equal.
+	{{/checkEqual}}
+
+	</script>
+
+	<script type="text/javascript">
+		
+		var template = document.getElementById("handlerTemplate").innerHTML;
+
+		var compiledTemplate = Handlebars.compile(template);
+
+		Handlebars.registerHelper("makeRadio", function(name, options) {
+			var radioList = options.fn();
+
+			radioList = radioList.trim().split("\n");
+			var output = "";
+
+			for (var val in radioList) {
+				 var item = radioList[val].trim();
+				 output += '<input type = "radio" name="' + name+ '"value="' + item + '">' + item +'<br/>';
+			}
+			return output;
+		});
+
+		Handlebars.registerHelper ("checkEqual", function (val_1, val_2, options) {
+			if(val_1 === val_2) {
+				return options.fn(this);
+			} else {
+				return options.inverse(this);
+			}
+		});
+
+		var templateData  = compiledTemplate({});
+
+		document.getElementById("myContainer").innerHTML += templateData;
+
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>This is second example of handle bar</title>
+	<script src="handlebars-v4.0.10.js"></script>
+</head>
+<body>
+	<div id="myContainer">	</div>
+
+	<!-- This is handler script.-->
+	<script id="handlerTemplate" type="text/x-handlebars-template">
+		
+		<h3>Below are my {{favorite_links}}</h3>
+		<h2> my favorite</h2>
+		<ol>
+			{{#each favorites}}
+				<li>{{favorite}}</li>
+			{{/each}}
+		</ol>
+		<div>{{{message}}}</div>
+	</script>
+
+	<!-- This is JS.-->
+	<script type="text/javascript">
+		
+	var template = document.getElementById("handlerTemplate").innerHTML;
+
+		var compiledTemplate = Handlebars.compile(template);
+		var dataAndTemplate = compiledTemplate({
+			favorite_links: "Favorite Links",
+			favorites : [
+				{ favorite : "yahoo"} ,
+				{ favorite : "Google"},
+				{ favorite : "Apple"}
+			],
+			message: "<i>I like it.</i>"
+		});
+
+		document.getElementById("myContainer").innerHTML += dataAndTemplate;
+
+	</script>	
+
+
+</body>
+</html>

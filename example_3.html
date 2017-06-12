@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>This is Thrild example of handle bar</title>
+	<script src="handlebars-v4.0.10.js"></script>
+</head>
+<body>
+	<div id="myContainer">	</div>
+
+	<!-- This is handler script.-->
+	<script id="handlerTemplate" type="text/x-handlebars-template">
+		
+		<!-- Three curly braces will not read HTML tags as String. -->
+		<div>{{{message}}}</div> 
+
+		<!-- This is the way we create Helper function in Handle bar -->
+		{{makelink "Google" "google.com"}} <br/>
+
+		<!-- Pass the attribute to the helper-->
+		{{changeColor "make my attribute Blue" color="blue"}}
+	</script>
+
+	<!-- This is JS.-->
+	<script type="text/javascript">
+		
+	var template = document.getElementById("handlerTemplate").innerHTML;
+
+	var compiledTemplate = Handlebars.compile(template);
+
+	Handlebars.registerHelper("makelink", function(text, url) {
+
+		text = Handlebars.Utils.escapeExpression(text);
+		url = Handlebars.Utils.escapeExpression(url);
+
+		var createLink = '<a href="'+url+'>'+text+'</a>'
+
+		return createLink;
+
+		// For some reason below is not working.
+		//return new Handlebars.SafeString(createLink);
+		
+	});
+
+
+	Handlebars.registerHelper("changeColor", function(text, options) {
+
+		text = Handlebars.Utils.escapeExpression(text);
+		
+		//This is also not working.
+		if(options.hash.color == 'red'){
+			return new Handlebars.SafeString ("<span class='redText'>" + text + "</span>");
+		} else if (options.hash.color == 'blue') {
+			return new Handlebars.SafeString ("<span class='blue'>"+ text + '</span>');
+		}
+	});
+	
+	var dataAndTemplate = compiledTemplate({
+			message: "<i>This is one way to use inbuilt tag. </i>",
+			message2: "<i>This is another way.</i>"
+		});
+
+		document.getElementById("myContainer").innerHTML += dataAndTemplate;
+
+
+
+	</script>	
+
+
+</body>
+</html>

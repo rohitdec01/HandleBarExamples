@@ -1,0 +1,27 @@
+<!--C:\Users\Rohit\AppData\Roaming\npm\node_modules\handlebars-->
+<!DOCTYPE html>
+<html>
+<head>
+	<title>This is first example of handle bar</title>
+	<script src="handlebars-v4.0.10.js"></script>
+	
+</head>
+<body> 
+	<div id="myContainer"></div>
+	
+
+	<script type="text/javascript">
+		
+	var myInfo = "<p>My name is {{name}} and I am from {{country}}</p>";
+
+
+	var template  = Handlebars.compile(myInfo);
+ 	var data = template({name: "Rohit",country: "India"});
+
+ 	document.getElementById("myContainer").innerHTML += data;
+
+	</script>
+	
+</div>
+</body>
+</html>
